@@ -22,7 +22,8 @@ public class TouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if(TOOL_TYPE_STYLUS != event.getToolType(0) &&
-               MotionEvent.TOOL_TYPE_ERASER != event.getToolType(0)){
+               MotionEvent.TOOL_TYPE_ERASER != event.getToolType(0) &&
+               MotionEvent.TOOL_TYPE_FINGER != event.getToolType(0)){
                return false;
             }
             int x = (int) event.getX();
