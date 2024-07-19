@@ -1,7 +1,5 @@
 package com.virtual_pen;
 
-import static android.view.MotionEvent.TOOL_TYPE_STYLUS;
-
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,15 +19,9 @@ public class TouchListener {
     public View.OnTouchListener handleTouch = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            if(TOOL_TYPE_STYLUS != event.getToolType(0) &&
-               MotionEvent.TOOL_TYPE_ERASER != event.getToolType(0) &&
-               MotionEvent.TOOL_TYPE_FINGER != event.getToolType(0)){
-               return false;
-            }
             int x = (int) event.getX();
             int y = (int) event.getY();
-            String inputString = String.format(Locale.US, "%s,%s,%s,%s,%.9f,",
-                    event.getToolType(0),
+            String inputString = String.format(Locale.US, "%s,%s,%s,%.9f,",
                     event.getAction(),
                     x,
                     y,
