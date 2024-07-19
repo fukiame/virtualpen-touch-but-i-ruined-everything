@@ -21,11 +21,10 @@ public class TouchListener {
         public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            String inputString = String.format(Locale.US, "%s,%s,%s,%.9f,",
+            String inputString = String.format(Locale.US, "%s,%s,%s,",
                     event.getAction(),
                     x,
-                    y,
-                    event.getPressure());
+                    y);
             try {
                 fileOutputStream.write(inputString.getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
