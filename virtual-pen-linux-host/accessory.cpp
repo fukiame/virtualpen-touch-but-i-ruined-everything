@@ -43,9 +43,6 @@ void extractAccessoryEventData(AccessoryEventData * accessoryEventData,
     accessoryEventData->action = std::stoi(strs[1]);
     accessoryEventData->x = std::stoi(strs[2]);
     accessoryEventData->y = std::stoi(strs[3]);
-    if(strs[4] != ""){
-        accessoryEventData->pressure = std::stod(strs[4]);
-    }
 }
 
 void printRawInputData(array<string, 5> * strs){
@@ -55,7 +52,6 @@ void printRawInputData(array<string, 5> * strs){
         qDebug() << "Raw Action type: " << QString::fromStdString((*strs)[1]);
         qDebug() << "Raw X pos: " << QString::fromStdString((*strs)[2]);
         qDebug() << "Raw Y pos: " << QString::fromStdString((*strs)[3]);
-        qDebug() << "Raw pressure: " << QString::fromStdString((*strs)[4]);
     }
 }
 

@@ -36,7 +36,6 @@ add_executable(virtual-pen-linux-host ${PROJECT_SOURCES}
     constants.h
     displayscreentranslator.h
     displayscreentranslator.cpp
-    pressuretranslator.h pressuretranslator.cpp
     icon.qrc
     filepermissionvalidator.h filepermissionvalidator.cpp
     udevdialog.ui

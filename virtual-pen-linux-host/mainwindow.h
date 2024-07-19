@@ -8,7 +8,6 @@
 #include <QtConcurrent/QtConcurrent>
 #include "displayscreentranslator.h"
 #include "filepermissionvalidator.h"
-#include "pressuretranslator.h"
 
 using namespace std;
 QT_BEGIN_NAMESPACE
@@ -41,10 +40,6 @@ private slots:
 
     void on_displayStyleComboBox_currentIndexChanged(int index);
 
-    void on_pressureSensitivitySlider_valueChanged(int value);
-
-    void on_minimumPressureSlider_valueChanged(int value);
-
     void on_refreshUsbDevices_clicked();
 
     void on_deviceXSize_selectionChanged();
@@ -58,8 +53,6 @@ private:
     const QString setting_app = "virtualpen";
     const string y_device_setting_key = "/y_size";
     const string x_device_setting_key = "/x_size";
-    const string min_pressure_setting_key = "/min_pressure";
-    const string pressure_sensitivity_setting_key = "/pressure_sensitivity";
     const string display_style_setting_key = "/display_style";
     QDialog * dialog;
     FilePermissionValidator * filePermissionValidator;
@@ -69,7 +62,6 @@ private:
     QMessageBox * messageBox;
     QSettings * settings;
     DisplayScreenTranslator * displayScreenTranslator;
-    PressureTranslator * pressureTranslator;
     QMap<string, string>* usbDevices;
     int libUsbContext;
     string selectedDeviceIdentifier;

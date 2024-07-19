@@ -17,7 +17,6 @@ const int EC_KEY_TOUCH = 0x14a;
 
 const int EC_ABSOLUTE_X = 0x00;
 const int EC_ABSOLUTE_Y = 0x01;
-const int EC_ABSOLUTE_PRESSURE = 0x18;
 const int EC_ABSOLUTE_TILT_X = 0x1a;
 const int EC_ABSOLUTE_TILT_Y = 0x1b;
 

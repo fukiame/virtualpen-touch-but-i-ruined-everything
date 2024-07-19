@@ -79,8 +79,6 @@ void init_stylus(int fd, const char* name, Error* err)
     OK_OR_ABORT(err);
     setup_abs(fd, ABS_Y, 0, ABS_MAX_VAL, 1, err);
     OK_OR_ABORT(err);
-    setup_abs(fd, ABS_PRESSURE, 0, ABS_MAX_VAL, 12, err);
-    OK_OR_ABORT(err);
     setup_abs(fd, ABS_TILT_X, -90, 90, 12, err);
     OK_OR_ABORT(err);
     setup_abs(fd, ABS_TILT_Y, -90, 90, 12, err);

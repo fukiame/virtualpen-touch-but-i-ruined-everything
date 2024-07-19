@@ -24,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     , selectedDevice("")
     , usbDevices(new QMap<string, string>())
     , displayScreenTranslator(new DisplayScreenTranslator())
-    , pressureTranslator(new PressureTranslator())
 {
     settings = new QSettings(setting_org, setting_app);
     filePermissionValidator = new FilePermissionValidator();
@@ -39,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::captureStylusInput(){
-    VirtualStylus* virtualStylus = new VirtualStylus(displayScreenTranslator, pressureTranslator);
+    VirtualStylus* virtualStylus = new VirtualStylus(displayScreenTranslator);
     virtualStylus->initializeStylus();
     capture(selectedDevice, virtualStylus);
 }
@@ -170,19 +169,6 @@ void MainWindow::on_displayStyleComboBox_currentIndexChanged(int index)
     setSetting(display_style_setting_key, displayStyleInt);
 }
 
-void MainWindow::on_pressureSensitivitySlider_valueChanged(int value)
-{
-    pressureTranslator->sensitivity = value;
-    setSetting(pressure_sensitivity_setting_key, value);
-}
-
-
-void MainWindow::on_minimumPressureSlider_valueChanged(int value)
-{
-    pressureTranslator->minPressure = value;
-    setSetting(min_pressure_setting_key, value);
-}
-
 void MainWindow::loadDeviceConfig(){
     displayScreenTranslator->size_x = getSetting(x_device_setting_key).toInt();
     displayScreenTranslator->size_y = getSetting(y_device_setting_key).toInt();
@@ -198,10 +184,6 @@ void MainWindow::loadDeviceConfig(){
     }
 
     ui->displayStyleComboBox->activated(0);
-    pressureTranslator->minPressure = getSetting(min_pressure_setting_key, QVariant::fromValue(10)).toInt();
-    ui->minimumPressureSlider->setValue(pressureTranslator->minPressure);
-    pressureTranslator->sensitivity = getSetting(pressure_sensitivity_setting_key, QVariant::fromValue(50)).toInt();
-    ui->pressureSensitivitySlider->setValue(pressureTranslator->sensitivity);
     ui->deviceXSize->setText(QString::number(displayScreenTranslator->size_x));
     ui->deviceYSize->setText(QString::number(displayScreenTranslator->size_y));
     on_deviceXSize_selectionChanged();
@@ -279,7 +261,6 @@ MainWindow::~MainWindow()
     delete ui;
     delete usbDevices;
     delete displayScreenTranslator;
-    delete pressureTranslator;
     delete settings;
     delete filePermissionValidator;
 }

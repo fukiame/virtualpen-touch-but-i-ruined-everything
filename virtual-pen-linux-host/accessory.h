@@ -7,7 +7,6 @@ using namespace std;
 typedef struct _accessoryEventData{
     int toolType;
     int action;
-    float pressure;
     int x;
     int y;
 } AccessoryEventData;

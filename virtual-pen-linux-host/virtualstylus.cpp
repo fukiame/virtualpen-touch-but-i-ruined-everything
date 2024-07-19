@@ -6,15 +6,12 @@
 #include "uinput.h"
 #include "constants.h"
 #include "accessory.h"
-#include "pressuretranslator.h"
 #include "mainwindow.h"
 
 using namespace std::chrono;
 
-VirtualStylus::VirtualStylus(DisplayScreenTranslator * displayScreenTranslator,
-                             PressureTranslator * pressureTranslator){
+VirtualStylus::VirtualStylus(DisplayScreenTranslator * displayScreenTranslator){
     this->displayScreenTranslator = displayScreenTranslator;
-    this->pressureTranslator = pressureTranslator;
 }
 
 void VirtualStylus::initializeStylus(){
@@ -56,15 +53,12 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
 
         }
 
-        int pressure = pressureTranslator->getResultingPressure(accessoryEventData);
         send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_X, x, err);
         send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_Y, y, err);
-        send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_PRESSURE, pressure, err);
     }
     else{
         send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 0, err);
         send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 0, err);
-        send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_PRESSURE, 0, err);
         isPenActive = false;
     }
 
@@ -77,7 +71,6 @@ void VirtualStylus::displayEventDebugInfo(AccessoryEventData * accessoryEventDat
     if(MainWindow::isDebugMode){
         qDebug() << "Event Action: " << accessoryEventData->action;
         qDebug() << "Event Tool type: " << accessoryEventData->toolType;
-        qDebug() << "Event pressure: " << accessoryEventData->pressure;
         qDebug() << "Event x pos: " << accessoryEventData->x;
         qDebug() << "Event y pos: " << accessoryEventData->y;
     }
