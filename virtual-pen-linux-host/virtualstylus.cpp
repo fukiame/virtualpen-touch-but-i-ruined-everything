@@ -30,17 +30,11 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
         if(accessoryEventData->action == ACTION_DOWN){
             send_uinput_event(fd, ET_KEY, EC_KEY_TOUCH, 1, err);
         }
-        if(!isPenActive && (accessoryEventData->toolType == PEN_TOOL_TYPE ||
-                            accessoryEventData->toolType == FINGER_TOOL_TYPE)){
-            send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 1, err);
-            send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 0, err);
-            isPenActive = true;
-        }
-        if(accessoryEventData->toolType == ERASER_TOOL_TYPE){
-            send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 0, err);
-            send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 1, err);
-            isPenActive = false;
-        }
+
+        send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 1, err);
+        send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 0, err);
+        isPenActive = true;
+
         int32_t x = 0;
         int32_t y = 0;
         if(displayScreenTranslator->displayStyle == DisplayStyle::stretched){
@@ -70,7 +64,6 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
 void VirtualStylus::displayEventDebugInfo(AccessoryEventData * accessoryEventData){
     if(MainWindow::isDebugMode){
         qDebug() << "Event Action: " << accessoryEventData->action;
-        qDebug() << "Event Tool type: " << accessoryEventData->toolType;
         qDebug() << "Event x pos: " << accessoryEventData->x;
         qDebug() << "Event y pos: " << accessoryEventData->y;
     }

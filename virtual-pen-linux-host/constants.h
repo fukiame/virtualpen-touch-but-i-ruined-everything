@@ -22,8 +22,4 @@ const int EC_ABSOLUTE_TILT_Y = 0x1b;
 
 const int EC_MSC_TIMESTAMP = 0x05;
 
-const int FINGER_TOOL_TYPE = 1;
-const int PEN_TOOL_TYPE = 2;
-const int ERASER_TOOL_TYPE = 4;
-
 #endif // CONSTANTS_H

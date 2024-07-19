@@ -5,7 +5,6 @@
 using namespace std;
 
 typedef struct _accessoryEventData{
-    int toolType;
     int action;
     int x;
     int y;
