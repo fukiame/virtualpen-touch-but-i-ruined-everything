@@ -37,14 +37,14 @@ void extractAccessoryEventData(AccessoryEventData * accessoryEventData,
                                               unsigned char* dataBuffer, int size)
 {
 
-    array<string, 5> strs = readUntilDelimiter(dataBuffer, size);
+    array<string, 3> strs = readUntilDelimiter(dataBuffer, size);
     printRawInputData(&strs);
-    accessoryEventData->action = std::stoi(strs[1]);
-    accessoryEventData->x = std::stoi(strs[2]);
-    accessoryEventData->y = std::stoi(strs[3]);
+    accessoryEventData->action = std::stoi(strs[0]);
+    accessoryEventData->x = std::stoi(strs[1]);
+    accessoryEventData->y = std::stoi(strs[2]);
 }
 
-void printRawInputData(array<string, 5> * strs){
+void printRawInputData(array<string, 3> * strs){
     if(MainWindow::isDebugMode){
         qDebug() << "              ";
         qDebug() << "Raw Action type: " << QString::fromStdString((*strs)[1]);
@@ -53,8 +53,8 @@ void printRawInputData(array<string, 5> * strs){
     }
 }
 
-array<string, 5> readUntilDelimiter(unsigned char* dataBuffer, int size){
-    array<string, 5> strs;
+array<string, 3> readUntilDelimiter(unsigned char* dataBuffer, int size){
+    array<string, 3> strs;
     int strPos = 0;
     string currentString = "";
     for (int i = 0; i < size; i++) {
