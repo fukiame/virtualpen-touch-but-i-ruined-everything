@@ -24,6 +24,8 @@
         </activity>
         <activity
             android:name=".UsbConnectedActivity"
+            android:screenOrientation="sensorLandscape"
+            android:immersive="true"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
