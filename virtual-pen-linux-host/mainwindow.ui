@@ -40,7 +40,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Usb Devices</string>
+     <string>USB devices</string>
     </property>
    </widget>
    <widget class="QListWidget" name="usbDevicesListWidget">
