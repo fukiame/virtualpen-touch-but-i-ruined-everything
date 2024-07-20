@@ -49,7 +49,7 @@ private slots:
     void on_connectUsbButton_2_clicked();
 
 private:
-    const QString setting_org = "com.github.androidvirtualpen";
+    const QString setting_org = "com.github.fukiame";
     const QString setting_app = "virtualpen";
     const string y_device_setting_key = "/y_size";
     const string x_device_setting_key = "/x_size";
