@@ -77,34 +77,34 @@ void accessory_main(accessory_t * acc, VirtualStylus* virtualStylus)
     /* If we have an accessory interface */
     if ((acc->pid != AOA_AUDIO_ADB_PID) && (acc->pid != AOA_AUDIO_PID)) {
         unsigned char acc_buf[512];
-		int transferred, i;
-		int errors = 20;
+        int transferred, i;
+        int errors = 20;
 
-		/* Claiming first (accessory )interface from the opened device */
+        /* Claiming first (accessory) interface from the opened device */
         ret = libusb_claim_interface(acc->handle, AOA_ACCESSORY_INTERFACE);
-		if (ret != 0) {
-			printf("Error %d claiming interface...\n", ret);
-			return;
-		}
+        if (ret != 0) {
+            printf("Error %d claiming interface...\n", ret);
+            return;
+        }
 
-		/* Snooping loop; Display every data received from device */
+        /* Snooping loop; Display every data received from device */
         AccessoryEventData * accessoryEventData = new AccessoryEventData();
-		while (!stop_acc) {
-			ret =
-			    libusb_bulk_transfer(acc->handle,
-						 AOA_ACCESSORY_EP_IN, acc_buf,
-						 sizeof(acc_buf), &transferred,
-						 200);
+        while (!stop_acc) {
+            ret =
+                libusb_bulk_transfer(acc->handle,
+                         AOA_ACCESSORY_EP_IN, acc_buf,
+                         sizeof(acc_buf), &transferred,
+                         200);
 
-			if (ret < 0) {
-				if (ret == LIBUSB_ERROR_TIMEOUT)
-					continue;
-				printf("bulk transfer error %d\n", ret);
-				if (--errors == 0)
-					break;
-				else
-					sleep(1);
-			}
+            if (ret < 0) {
+                if (ret == LIBUSB_ERROR_TIMEOUT)
+                    continue;
+                printf("bulk transfer error %d\n", ret);
+                if (--errors == 0)
+                    break;
+                else
+                    sleep(1);
+            }
             extractAccessoryEventData(accessoryEventData, acc_buf, transferred);
             if(MainWindow::isDebugMode){
                 printf("Received %d bytes\n", transferred);
@@ -115,7 +115,7 @@ void accessory_main(accessory_t * acc, VirtualStylus* virtualStylus)
                 }
             }
             virtualStylus->handleAccessoryEventData(accessoryEventData);
-		}
+        }
         delete accessoryEventData;
-	}
+    }
 }
