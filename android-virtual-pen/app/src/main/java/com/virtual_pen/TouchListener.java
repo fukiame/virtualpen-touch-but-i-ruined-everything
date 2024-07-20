@@ -21,7 +21,7 @@ public class TouchListener {
         public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            String inputString = String.format(Locale.US, "%s,%s,%s,",
+            String inputString = String.format("%s,%s,%s,",
                     event.getAction(),
                     x,
                     y);
