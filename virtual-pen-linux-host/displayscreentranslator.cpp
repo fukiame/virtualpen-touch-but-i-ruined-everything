@@ -20,11 +20,3 @@ int32_t DisplayScreenTranslator::getStretchedSize(int posOnDevice, int accessory
     float accessorySizeFloat = accessorySize;
     return static_cast<int>((posOnDevice / accessorySizeFloat) * ABS_MAX_VAL);
 }
-
-int DisplayScreenTranslator::getScreenX(){
-    return screen->geometry().width();
-}
-
-int DisplayScreenTranslator::getScreenY(){
-    return screen->geometry().height();
-}

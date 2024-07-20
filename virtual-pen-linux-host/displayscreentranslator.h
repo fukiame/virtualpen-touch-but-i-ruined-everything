@@ -12,8 +12,6 @@ public:
     DisplayScreenTranslator();
 private:
     QScreen *screen;
-    int getScreenX();
-    int getScreenY();
     int32_t getStretchedSize(int posOnDevice, int accessorySize);
 };
 
