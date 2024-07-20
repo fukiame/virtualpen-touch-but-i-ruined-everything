@@ -20,6 +20,4 @@ const int EC_ABSOLUTE_Y = 0x01;
 const int EC_ABSOLUTE_TILT_X = 0x1a;
 const int EC_ABSOLUTE_TILT_Y = 0x1b;
 
-const int EC_MSC_TIMESTAMP = 0x05;
-
 #endif // CONSTANTS_H
