@@ -1,3 +1,17 @@
+# Android Virtual Pen, scuffed edition
+
+canonically poor man's osu tablet
+
+changes compared to upstream:
+
+- removed tool type check, now the app accepts touch input
+- removed pressure support
+- force the app to be fullscreen and be on landscape
+
+for releases, check the [Releases](https://github.com/fukiame/virtualpen-touch-but-i-ruined-everything/releases) section
+
+below is the original README of the upstream project
+
 # Android Virtual Pen
 
 Android Virtual Pen allows to send pen input data from your android device to a pc host where it emulates a virtual pen.
