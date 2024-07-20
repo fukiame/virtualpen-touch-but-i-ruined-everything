@@ -250,12 +250,6 @@ void MainWindow::on_deviceYSize_selectionChanged()
         updateUsbConnectButton();
 }
 
-void MainWindow::on_connectUsbButton_2_clicked()
-{
-    QString link = "https://github.com/androidvirtualpen/virtualpen/releases/download/0.1/virtual-pen.apk";
-    QDesktopServices::openUrl(QUrl(link));
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;

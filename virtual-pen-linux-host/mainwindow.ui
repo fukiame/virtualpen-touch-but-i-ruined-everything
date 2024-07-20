@@ -202,19 +202,6 @@
      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="connectUsbButton_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>300</y>
-      <width>331</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Get Android App (.apk file)</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
