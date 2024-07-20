@@ -31,9 +31,10 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
             send_uinput_event(fd, ET_KEY, EC_KEY_TOUCH, 1, err);
         }
 
-        send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 1, err);
-        send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 0, err);
-        isPenActive = true;
+        if(!isPenActive){
+            send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 1, err);
+            isPenActive = true;
+        }
 
         int32_t x = 0;
         int32_t y = 0;
@@ -52,7 +53,6 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
     }
     else{
         send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_PEN, 0, err);
-        send_uinput_event(fd, ET_KEY, EC_KEY_TOOL_RUBBER, 0, err);
         isPenActive = false;
     }
 
