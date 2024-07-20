@@ -42,13 +42,13 @@ std::string url = "https://github.com/fukiame/virtualpen-touch-but-i-ruined-ever
 std::string serial = "0000000072769420";
 
 static const accessory_t acc_default = {
-    .device = device.data(),
-    .manufacturer = manufacturer.data(),
-    .model = model.data(),
-    .description = description.data(),
-    .version = version.data(),
-    .url = url.data(),
-    .serial = serial.data(),
+	.device = device.data(),
+	.manufacturer = manufacturer.data(),
+	.model = model.data(),
+	.description = description.data(),
+	.version = version.data(),
+	.url = url.data(),
+	.serial = serial.data(),
 };
 
 static int is_accessory_present(accessory_t * acc);
@@ -59,7 +59,7 @@ static void fini_accessory(accessory_t * acc);
 static void show_version(char *name)
 {
 	printf("%s v%s\nreport bugs to %s\n", name, PACKAGE_VERSION,
-	       PACKAGE_BUGREPORT);
+		PACKAGE_BUGREPORT);
 	return;
 }
 
@@ -82,12 +82,12 @@ int capture(string selectedDevice, VirtualStylus* virtualStylus)
 		printf("Cannot setup a signal handler...\n");
 
 	/* Disable buffering on stdout */
-    setbuf(stdout, NULL);
-    acc.device = selectedDevice.data();
-    acc.serial = acc_default.serial;
-    acc.manufacturer = acc_default.manufacturer;
-    acc.model = acc_default.model;
-    acc.version = acc_default.version;
+	setbuf(stdout, NULL);
+	acc.device = selectedDevice.data();
+	acc.serial = acc_default.serial;
+	acc.manufacturer = acc_default.manufacturer;
+	acc.model = acc_default.model;
+	acc.version = acc_default.version;
 #ifdef WIN32
 	/* AOA 2.0 not supported on Windows (pthread/hid/audio deps) */
 	aoa_max_version = 1;
@@ -95,7 +95,7 @@ int capture(string selectedDevice, VirtualStylus* virtualStylus)
 	if (init_accessory(&acc, aoa_max_version) != 0)
 		goto end;
 
-    accessory_main(&acc, virtualStylus);
+	accessory_main(&acc, virtualStylus);
 
 end:
 	fini_accessory(&acc);
@@ -137,10 +137,10 @@ static int init_accessory(accessory_t * acc, int aoa_max_version)
 
 	/* Now asking if device supports Android Open Accessory protocol */
 	ret = libusb_control_transfer(acc->handle,
-				      LIBUSB_ENDPOINT_IN |
-				      LIBUSB_REQUEST_TYPE_VENDOR,
-				      AOA_GET_PROTOCOL, 0, 0, buffer,
-				      sizeof(buffer), 0);
+					LIBUSB_ENDPOINT_IN |
+					LIBUSB_REQUEST_TYPE_VENDOR,
+					AOA_GET_PROTOCOL, 0, 0, buffer,
+					sizeof(buffer), 0);
 	if (ret < 0) {
 		printf("Error getting protocol...\n");
 		return ret;
@@ -165,49 +165,49 @@ static int init_accessory(accessory_t * acc, int aoa_max_version)
 	printf("Sending identification to the device\n");
 
 
-    if (acc->manufacturer) {
-        printf(" sending manufacturer: %s\n", acc->manufacturer);
-        ret = libusb_control_transfer(acc->handle,
-                                      LIBUSB_ENDPOINT_OUT
-                                          | LIBUSB_REQUEST_TYPE_VENDOR,
-                                      AOA_SEND_IDENT, 0,
-                                      AOA_STRING_MAN_ID,
-                                      (uint8_t *) acc->manufacturer,
-                                      strlen(acc->manufacturer) + 1, 0);
-        if (ret < 0)
-            goto error;
-    }
+	if (acc->manufacturer) {
+		printf(" sending manufacturer: %s\n", acc->manufacturer);
+		ret = libusb_control_transfer(acc->handle,
+						LIBUSB_ENDPOINT_OUT |
+						LIBUSB_REQUEST_TYPE_VENDOR,
+						AOA_SEND_IDENT, 0,
+						AOA_STRING_MAN_ID,
+						(uint8_t *) acc->manufacturer,
+						strlen(acc->manufacturer) + 1, 0);
+		if (ret < 0)
+			goto error;
+	}
 
-    if (acc->model) {
-        printf(" sending model: %s\n", acc->model);
-        ret = libusb_control_transfer(acc->handle,
-                                      LIBUSB_ENDPOINT_OUT
-                                          | LIBUSB_REQUEST_TYPE_VENDOR,
-                                      AOA_SEND_IDENT, 0,
-                                      AOA_STRING_MOD_ID,
-                                      (uint8_t *) acc->model,
-                                      strlen(acc->model) + 1, 0);
-        if (ret < 0)
-            goto error;
-    }
+	if (acc->model) {
+		printf(" sending model: %s\n", acc->model);
+		ret = libusb_control_transfer(acc->handle,
+						LIBUSB_ENDPOINT_OUT |
+						LIBUSB_REQUEST_TYPE_VENDOR,
+						AOA_SEND_IDENT, 0,
+						AOA_STRING_MOD_ID,
+						(uint8_t *) acc->model,
+						strlen(acc->model) + 1, 0);
+		if (ret < 0)
+			goto error;
+	}
 
 
-    printf(" sending version: %s\n", acc->version);
-    ret = libusb_control_transfer(acc->handle,
-                                  LIBUSB_ENDPOINT_OUT |
-                                      LIBUSB_REQUEST_TYPE_VENDOR,
-                                  AOA_SEND_IDENT, 0, AOA_STRING_VER_ID,
-                                  (uint8_t *) acc->version,
-                                  strlen(acc->version) + 1, 0);
-    if (ret < 0)
-        goto error;
+	printf(" sending version: %s\n", acc->version);
+	ret = libusb_control_transfer(acc->handle,
+					LIBUSB_ENDPOINT_OUT |
+					LIBUSB_REQUEST_TYPE_VENDOR,
+					AOA_SEND_IDENT, 0, AOA_STRING_VER_ID,
+					(uint8_t *) acc->version,
+					strlen(acc->version) + 1, 0);
+	if (ret < 0)
+		goto error;
 
 
 	printf("Turning the device in Accessory mode\n");
 	ret = libusb_control_transfer(acc->handle,
-				      LIBUSB_ENDPOINT_OUT |
-				      LIBUSB_REQUEST_TYPE_VENDOR,
-				      AOA_START_ACCESSORY, 0, 0, NULL, 0, 0);
+					LIBUSB_ENDPOINT_OUT |
+					LIBUSB_REQUEST_TYPE_VENDOR,
+					AOA_START_ACCESSORY, 0, 0, NULL, 0, 0);
 	if (ret < 0)
 		goto error;
 
