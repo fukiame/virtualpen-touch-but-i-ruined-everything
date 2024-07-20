@@ -47,9 +47,9 @@ void extractAccessoryEventData(AccessoryEventData * accessoryEventData,
 void printRawInputData(array<string, 3> * strs){
     if(MainWindow::isDebugMode){
         qDebug() << "              ";
-        qDebug() << "Raw Action type: " << QString::fromStdString((*strs)[1]);
-        qDebug() << "Raw X pos: " << QString::fromStdString((*strs)[2]);
-        qDebug() << "Raw Y pos: " << QString::fromStdString((*strs)[3]);
+        qDebug() << "Raw Action type: " << QString::fromStdString((*strs)[0]);
+        qDebug() << "Raw X pos: " << QString::fromStdString((*strs)[1]);
+        qDebug() << "Raw Y pos: " << QString::fromStdString((*strs)[2]);
     }
 }
 
