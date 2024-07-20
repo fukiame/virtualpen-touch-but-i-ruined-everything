@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->deviceXSize->setValidator(new QIntValidator(1, max_device_size, this));
     ui->deviceYSize->setValidator(new QIntValidator(1, max_device_size, this));
-    initDisplayStyles();
     libUsbContext = libusb_init(NULL);
     updateUsbConnectButton();
     populateUsbDevicesList();
@@ -127,12 +126,6 @@ void MainWindow::fetchUsbDevices(){
     }
 }
 
-void MainWindow::initDisplayStyles(){
-    ui->displayStyleComboBox->addItem("  Stretched", static_cast<int>(DisplayStyle::stretched));
-    ui->displayStyleComboBox->addItem("  Fixed", static_cast<int>(DisplayStyle::fixed));
-}
-
-
 void MainWindow::on_deviceXSize_editingFinished()
 {
     displayScreenTranslator->size_x = ui->deviceXSize->text().toInt();
@@ -158,28 +151,9 @@ void MainWindow::manageInputBoxStyle(QLineEdit * inputBox){
 }
 
 
-void MainWindow::on_displayStyleComboBox_currentIndexChanged(int index)
-{
-    int displayStyleInt = ui->displayStyleComboBox->currentData().toInt();
-    displayScreenTranslator->displayStyle = static_cast<DisplayStyle>(displayStyleInt);
-    setSetting(display_style_setting_key, displayStyleInt);
-}
-
 void MainWindow::loadDeviceConfig(){
     displayScreenTranslator->size_x = getSetting(x_device_setting_key).toInt();
     displayScreenTranslator->size_y = getSetting(y_device_setting_key).toInt();
-    int displayStyleInt = getSetting(display_style_setting_key).toInt();
-    int index = ui->displayStyleComboBox->findData(displayStyleInt);
-    if ( index != -1 ) {
-        displayScreenTranslator->displayStyle = static_cast<DisplayStyle>(displayStyleInt);
-        ui->displayStyleComboBox->setCurrentIndex(index);
-    }
-    else{
-        displayScreenTranslator->displayStyle = DisplayStyle::stretched;
-        ui->displayStyleComboBox->setCurrentIndex(ui->displayStyleComboBox->findData(static_cast<int>(DisplayStyle::stretched)));
-    }
-
-    ui->displayStyleComboBox->activated(0);
     ui->deviceXSize->setText(QString::number(displayScreenTranslator->size_x));
     ui->deviceYSize->setText(QString::number(displayScreenTranslator->size_y));
     on_deviceXSize_selectionChanged();

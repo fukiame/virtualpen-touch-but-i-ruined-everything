@@ -34,15 +34,9 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
 
         int32_t x = 0;
         int32_t y = 0;
-        if(displayScreenTranslator->displayStyle == DisplayStyle::stretched){
-            x = displayScreenTranslator->getAbsXStretched(accessoryEventData);
-            y = displayScreenTranslator->getAbsYStretched(accessoryEventData);
-        }
-        else if(displayScreenTranslator->displayStyle == DisplayStyle::fixed){
-            x = displayScreenTranslator->getAbsXFixed(accessoryEventData);
-            y = displayScreenTranslator->getAbsYFixed(accessoryEventData);
 
-        }
+        x = displayScreenTranslator->getAbsXStretched(accessoryEventData);
+        y = displayScreenTranslator->getAbsYStretched(accessoryEventData);
 
         send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_X, x, err);
         send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_Y, y, err);

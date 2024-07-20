@@ -37,8 +37,6 @@ private slots:
 
     void on_deviceYSize_editingFinished();
 
-    void on_displayStyleComboBox_currentIndexChanged(int index);
-
     void on_refreshUsbDevices_clicked();
 
     void on_deviceXSize_selectionChanged();
@@ -50,7 +48,6 @@ private:
     const QString setting_app = "virtualpen";
     const string y_device_setting_key = "/y_size";
     const string x_device_setting_key = "/x_size";
-    const string display_style_setting_key = "/display_style";
     QDialog * dialog;
     FilePermissionValidator * filePermissionValidator;
     const int max_device_size = 999999999;
@@ -65,7 +62,6 @@ private:
     string selectedDevice;
     QVariant getSetting(string settingKey);
     QVariant getSetting(string settingKey, QVariant defaultValue);
-    void initDisplayStyles();
     void setSetting(string settingKey, QVariant value);
     void fetchUsbDevices();
     void populateUsbDevicesList();
