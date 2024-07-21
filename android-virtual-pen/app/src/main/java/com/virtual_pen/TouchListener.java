@@ -21,10 +21,7 @@ public class TouchListener {
         public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            String inputString = String.format("%s,%s,%s,",
-                    event.getAction(),
-                    x,
-                    y);
+            String inputString = String.format("%s,%s,",x,y);
             try {
                 fileOutputStream.write(inputString.getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
