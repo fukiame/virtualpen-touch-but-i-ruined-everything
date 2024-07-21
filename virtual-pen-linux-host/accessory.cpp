@@ -35,14 +35,13 @@ void extractAccessoryEventData(AccessoryEventData * accessoryEventData,
                                               unsigned char* dataBuffer, int size)
 {
 
-    array<string, 3> strs = readUntilDelimiter(dataBuffer, size);
-    accessoryEventData->action = std::stoi(strs[0]);
-    accessoryEventData->x = std::stoi(strs[1]);
-    accessoryEventData->y = std::stoi(strs[2]);
+    array<string, 2> strs = readUntilDelimiter(dataBuffer, size);
+    accessoryEventData->x = std::stoi(strs[0]);
+    accessoryEventData->y = std::stoi(strs[1]);
 }
 
-array<string, 3> readUntilDelimiter(unsigned char* dataBuffer, int size){
-    array<string, 3> strs;
+array<string, 2> readUntilDelimiter(unsigned char* dataBuffer, int size){
+    array<string, 2> strs;
     int strPos = 0;
     string currentString = "";
     for (int i = 0; i < size; i++) {
