@@ -16,6 +16,5 @@ private:
     int fd;
     bool isPenActive;
     DisplayScreenTranslator * displayScreenTranslator;
-    void displayEventDebugInfo(AccessoryEventData * accessoryEventData);
 };
 #endif // VIRTUALSTYLUS_H
