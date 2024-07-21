@@ -74,7 +74,7 @@ void accessory_main(accessory_t * acc, VirtualStylus* virtualStylus)
     int ret = 0;
     /* If we have an accessory interface */
     if ((acc->pid != AOA_AUDIO_ADB_PID) && (acc->pid != AOA_AUDIO_PID)) {
-        unsigned char acc_buf[16];
+        unsigned char acc_buf[12];
         int transferred, i;
         int errors = 20;
 
