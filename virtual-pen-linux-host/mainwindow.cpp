@@ -15,6 +15,7 @@
 using namespace QtConcurrent;
 using namespace std;
 namespace fs = std::filesystem;
+bool MainWindow::isDebugMode{ false };
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -96,6 +97,9 @@ void MainWindow::fetchUsbDevices(){
         libusb_device_handle *handle = NULL;
         err = libusb_open(dev, &handle);
         if (err) {
+            if(MainWindow::isDebugMode){
+                printf("Unable to open device...\n");
+            }
             continue;
         }
         unsigned char buf[100];

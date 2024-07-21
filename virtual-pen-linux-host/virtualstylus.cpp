@@ -1,10 +1,12 @@
 #include <QGuiApplication>
 #include <chrono>
+#include <QDebug>
 #include "virtualstylus.h"
 #include "error.h"
 #include "uinput.h"
 #include "constants.h"
 #include "accessory.h"
+#include "mainwindow.h"
 
 using namespace std::chrono;
 
@@ -22,6 +24,7 @@ void VirtualStylus::initializeStylus(){
 
 void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEventData){
     Error * err = new Error();
+    displayEventDebugInfo(accessoryEventData);
 
     send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_X, displayScreenTranslator->getAbsXStretched(accessoryEventData), err);
     send_uinput_event(fd, ET_ABSOLUTE, EC_ABSOLUTE_Y, displayScreenTranslator->getAbsYStretched(accessoryEventData), err);
@@ -30,6 +33,12 @@ void VirtualStylus::handleAccessoryEventData(AccessoryEventData * accessoryEvent
     delete err;
 }
 
+void VirtualStylus::displayEventDebugInfo(AccessoryEventData * accessoryEventData){
+    if(MainWindow::isDebugMode){
+        qDebug() << "Event x pos: " << accessoryEventData->x;
+        qDebug() << "Event y pos: " << accessoryEventData->y;
+    }
+}
 
 void VirtualStylus::destroyStylus(){
     //ioctl(fd, UI_DEV_DESTROY);

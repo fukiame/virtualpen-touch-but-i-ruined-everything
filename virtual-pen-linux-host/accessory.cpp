@@ -23,10 +23,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <iostream>
+#include <QDebug>
 #include <libusb-1.0/libusb.h>
 #include "virtualstylus.h"
 #include "accessory.h"
 #include "linux-adk.h"
+#include "mainwindow.h"
 
 
 using namespace std;
@@ -36,8 +38,17 @@ void extractAccessoryEventData(AccessoryEventData * accessoryEventData,
 {
 
     array<string, 2> strs = readUntilDelimiter(dataBuffer, size);
+    printRawInputData(&strs);
     accessoryEventData->x = std::stoi(strs[0]);
     accessoryEventData->y = std::stoi(strs[1]);
+}
+
+void printRawInputData(array<string, 2> * strs){
+    if(MainWindow::isDebugMode){
+        qDebug() << "              ";
+        qDebug() << "Raw X pos: " << QString::fromStdString((*strs)[0]);
+        qDebug() << "Raw Y pos: " << QString::fromStdString((*strs)[1]);
+    }
 }
 
 array<string, 2> readUntilDelimiter(unsigned char* dataBuffer, int size){
@@ -93,6 +104,14 @@ void accessory_main(accessory_t * acc, VirtualStylus* virtualStylus)
                     sleep(1);
             }
             extractAccessoryEventData(accessoryEventData, acc_buf, transferred);
+            if(MainWindow::isDebugMode){
+                printf("Received %d bytes\n", transferred);
+                for (i = 0; i < transferred;) {
+                    printf("%#2.2x ", acc_buf[i++]);
+                    if (!(i % 8))
+                        printf("\n");
+                }
+            }
             virtualStylus->handleAccessoryEventData(accessoryEventData);
         }
         delete accessoryEventData;
